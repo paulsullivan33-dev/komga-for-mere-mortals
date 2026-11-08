@@ -1,0 +1,59 @@
+$ curl -s -u keeper@... "http://127.0.0.1:18090/api/v1/series/0S5KAHF6YEYSP/books?unpaged=true" - distilled with jq to the fields the guide discusses
+name='Clockwork Orchard 001' number=1 size=160.5 KiB mediaStatus=READY mediaType=application/zip pagesCount=6 comment='' readProgress={}
+name='Clockwork Orchard 002' number=2 size=134.6 KiB mediaStatus=READY mediaType=application/zip pagesCount=5 comment='' readProgress={}
+name='Clockwork Orchard 003' number=3 size=106.7 KiB mediaStatus=READY mediaType=application/zip pagesCount=4 comment='' readProgress={}
+name='Clockwork Orchard 004' number=4 size=132 B mediaStatus=UNSUPPORTED mediaType=text/plain pagesCount=0 comment='ERR_1001' readProgress={}
+totalElements: 4
+
+--- full JSON for book 001 ---
+{
+    "id": "0S5KAHF72EN6M",
+    "seriesId": "0S5KAHF6YEYSP",
+    "seriesTitle": "Clockwork Orchard",
+    "libraryId": "0S5KAHEBJEPPY",
+    "name": "Clockwork Orchard 001",
+    "url": "/home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library/Clockwork Orchard/Clockwork Orchard 001.cbz",
+    "number": 1,
+    "created": "2026-11-07T22:11:30Z",
+    "lastModified": "2026-11-07T22:11:37Z",
+    "fileLastModified": "2026-11-07T22:06:15Z",
+    "sizeBytes": 164401,
+    "size": "160.5 KiB",
+    "media": {
+        "status": "READY",
+        "mediaType": "application/zip",
+        "pagesCount": 6,
+        "comment": "",
+        "epubDivinaCompatible": false,
+        "epubIsKepub": false,
+        "mediaProfile": "DIVINA"
+    },
+    "metadata": {
+        "title": "Clockwork Orchard 001",
+        "titleLock": false,
+        "summary": "",
+        "summaryLock": false,
+        "number": "1",
+        "numberLock": false,
+        "numberSort": 1.0,
+        "numberSortLock": false,
+        "releaseDate": null,
+        "releaseDateLock": false,
+        "authors": [],
+        "authorsLock": false,
+        "notableEntities": [],
+        "notableEntitiesLock": false,
+        "tags": [],
+        "tagsLock": false,
+        "isbn": "",
+        "isbnLock": false,
+        "links": [],
+        "linksLock": false,
+        "created": "2026-11-07T22:11:30Z",
+        "lastModified": "2026-11-07T22:11:31Z"
+    },
+    "readProgress": null,
+    "deleted": false,
+    "fileHash": "875d20f99af02578d2ecf3ab2cb81411",
+    "oneshot": false
+}

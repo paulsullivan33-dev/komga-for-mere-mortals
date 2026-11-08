@@ -1,0 +1,14 @@
+$ python3 add-issue-005.py
+wrote /home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library/Clockwork Orchard/Clockwork Orchard 005.cbz (83029 bytes, 3 pages)
+rewrote /home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library/Clockwork Orchard/Clockwork Orchard 003.cbz (109593 bytes, 4 pages + ComicInfo.xml)
+$ curl -s -o /dev/null -w "%{http_code}" -u keeper@... -X POST http://127.0.0.1:18090/api/v1/libraries/0S5KAHEBJEPPY/scan
+HTTP 202
+$ curl -s -u keeper@... ".../api/v1/series/0S5KAHF6YEYSP/books?unpaged=true" distilled
+'Clockwork Orchard 001' status=READY pages=6 title='Clockwork Orchard 001' summary='' authors=[]
+'Clockwork Orchard 002' status=READY pages=5 title='Clockwork Orchard 002' summary='' authors=[]
+'Clockwork Orchard 003' status=READY pages=4 title='The Glass Greenhouse' summary='The keeper builds a greenhouse of clock glass and plants a t' authors=[{'name': 'A. R. Fenwick', 'role': 'writer'}]
+'Clockwork Orchard 004' status=UNSUPPORTED pages=0 title='Clockwork Orchard 004' summary='' authors=[]
+'Clockwork Orchard 005' status=READY pages=3 title='Clockwork Orchard 005' summary='' authors=[]
+totalElements: 5
+2026-11-07T22:11:48.319Z  INFO 180687 --- [taskProcessor-1] o.g.k.domain.service.FileSystemScanner   : Scanned 1 series, 4 books, and 0 sidecars in 2.607672ms
+2026-11-07T22:13:28.938Z  INFO 180687 --- [taskProcessor-2] o.g.k.domain.service.FileSystemScanner   : Scanned 1 series, 5 books, and 0 sidecars in 3.799649ms

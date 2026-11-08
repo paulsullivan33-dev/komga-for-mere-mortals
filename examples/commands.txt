@@ -1,0 +1,103 @@
+Komga — the distilled commands
+====================================================================
+Placeholders: <host> is where your server listens (the lab used
+127.0.0.1:18090; the default port is 25600); <cred> is
+-u email:password for your account. Every command below is one
+the lab ran (transcripts in komga-lab/transcripts/) or names
+as documented-only in the guide.
+
+INSTALL AND START (chapters 3-4)
+--------------------------------------------------------------------
+  sha256sum komga-1.30.0.jar     # compare with the release's
+                                 # checksums_sha256.txt
+  java -version                  # 21 or newer for the 1.x line
+  java -jar komga-1.30.0.jar \
+    --server.address=127.0.0.1 \
+    --server.port=18090 \
+    --komga.config-dir=/path/to/config
+                                 # the lab's start; a standing
+                                 # install uses port 25600 and
+                                 # its own config folder
+
+CLAIM THE SERVER (chapter 4)
+--------------------------------------------------------------------
+  curl -s http://<host>/api/v1/claim
+                                 # {"isClaimed":false} on a
+                                 # fresh server
+  curl -s -X POST http://<host>/api/v1/claim \
+    -H "X-Komga-Email: you@example.org" \
+    -H "X-Komga-Password: YourPassword" \
+    -H "Content-Type: application/json" -d '{}'
+                                 # the first administrator;
+                                 # only works while zero users
+                                 # exist. The web interface's
+                                 # first screen makes this call.
+
+SIGN IN AND LOOK (chapters 4, 8)
+--------------------------------------------------------------------
+  curl -s -u <cred> http://<host>/api/v2/users/me
+                                 # who am I (note: v2)
+  curl -s -u <cred> "http://<host>/api/v1/series?unpaged=true"
+  curl -s -u <cred> "http://<host>/api/v1/series?search=Orchard"
+                                 # search is a parameter
+  curl -s -u <cred> http://<host>/api/v1/series/<series-id>/books?unpaged=true
+  curl -s -u <cred> http://<host>/api/v1/books/<book-id>
+  curl -s -u <cred> http://<host>/api/v1/books/<book-id>/pages
+  curl -s -u <cred> -o page.png \
+    http://<host>/api/v1/books/<book-id>/pages/1
+                                 # pages count from 1 in the API
+  curl -s -u <cred> -o thumb.jpg \
+    http://<host>/api/v1/books/<book-id>/thumbnail
+
+LIBRARIES AND SCANS (chapter 6)
+--------------------------------------------------------------------
+  curl -s -u <cred> -X POST http://<host>/api/v1/libraries \
+    -H "Content-Type: application/json" \
+    -d '{"name":"My Library","root":"/path/to/comics"}'
+                                 # creation starts a scan
+  curl -s -u <cred> -X POST \
+    http://<host>/api/v1/libraries/<library-id>/scan
+                                 # 202: rescan accepted
+
+READING PROGRESS (chapter 11)
+--------------------------------------------------------------------
+  curl -s -u <cred> -X PATCH \
+    http://<host>/api/v1/books/<book-id>/read-progress \
+    -H "Content-Type: application/json" \
+    -d '{"page": 3, "completed": false}'
+                                 # 204; finish with the last
+                                 # page and "completed": true
+  curl -s -u <cred> http://<host>/api/v1/books/ondeck
+                                 # what to read next
+
+USERS (chapter 10)
+--------------------------------------------------------------------
+  curl -s -u <admin-cred> -X POST http://<host>/api/v2/users \
+    -H "Content-Type: application/json" \
+    -d '{"email":"reader@example.org","password":"...","roles":[]}'
+                                 # 201; add "PAGE_STREAMING"
+                                 # and/or "FILE_DOWNLOAD" to
+                                 # roles to open those doors
+
+OPDS (chapter 9)
+--------------------------------------------------------------------
+  curl -s -u <cred> http://<host>/opds/v1.2/catalog
+                                 # the feed reading apps use
+  curl -s -u <cred> http://<host>/opds/v1.2/series/<series-id>
+                                 # a series' book feed
+  curl -s -u <cred> -o book.cbz \
+    "http://<host>/opds/v1.2/books/<book-id>/file/<Book%20Name>.cbz"
+                                 # the acquisition link: the
+                                 # file itself, byte-identical
+  curl -s -u <cred> -o page0.png \
+    http://<host>/opds/v1.2/books/<book-id>/pages/0
+                                 # OPDS-PSE stream; pages
+                                 # count from 0 here
+
+DOCUMENTED ONLY (named in the guide, not run by the lab)
+--------------------------------------------------------------------
+  java -jar komga-1.30.0.jar --list-users
+  java -jar komga-1.30.0.jar --email=<user> --newpassword=<text>
+                                 # account list and password
+                                 # reset, from the project's
+                                 # CLI guide

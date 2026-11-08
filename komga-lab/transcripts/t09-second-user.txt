@@ -1,0 +1,38 @@
+$ curl -s -u keeper@...(admin) -X POST http://127.0.0.1:18090/api/v1/users -d @reader.json   {"email": "reader@clockwork.example", "password": "...", "roles": []}
+{"timestamp":"2026-11-07T22:13:00.654+00:00","status":404,"error":"Not Found","message":"No endpoint POST /api/v1/users.","path":"/api/v1/users"}
+HTTP 404
+$ curl -s -u reader@clockwork.example:... http://127.0.0.1:18090/api/v2/users/me
+{"timestamp":"2026-11-07T22:13:00.793+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/api/v2/users/me"}
+HTTP 401
+$ curl -s -u reader@... "http://127.0.0.1:18090/api/v1/series?unpaged=true"  (can the reader see the series?)
+(no series visible)
+$ curl -s -u reader@... -X POST http://127.0.0.1:18090/api/v1/libraries -d @library.json  (a non-admin tries to add a library)
+{"timestamp":"2026-11-07T22:13:01.128+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/api/v1/libraries"}
+HTTP 401
+
+$ curl -s -u reader@... http://127.0.0.1:18090/api/v1/users  (a non-admin tries to list users)
+HTTP 401
+$ curl -s -u keeper@...(admin) "http://127.0.0.1:18090/api/v1/users?unpaged=true"  (the admin list, for contrast)
+--- user management lives under /api/v2 in 1.30 ---
+$ curl -s -u keeper@...(admin) -X POST http://127.0.0.1:18090/api/v2/users -d @reader.json
+{"id":"0S5KAX62TEKWE","email":"reader@clockwork.example","roles":["USER"],"sharedAllLibraries":true,"sharedLibrariesIds":[],"labelsAllow":[],"labelsExclude":[]}
+HTTP 201
+$ curl -s -u reader@clockwork.example:... http://127.0.0.1:18090/api/v2/users/me
+{"id":"0S5KAX62TEKWE","email":"reader@clockwork.example","roles":["USER"],"sharedAllLibraries":true,"sharedLibrariesIds":[],"labelsAllow":[],"labelsExclude":[]}
+HTTP 200
+$ curl -s -u reader@... "http://127.0.0.1:18090/api/v1/series?unpaged=true"
+{"content":[{"id":"0S5KAHF6YEYSP","libraryId":"0S5KAHEBJEPPY","name":"Clockwork Orchard","url":"","created":"2026-11-07T22:11:30Z","lastModified":"2026-11-07T22:11:30Z","fileLastModified":"2026-11-07T22:06:17Z","booksCount":4,"booksReadCount":0,"booksUnreadCount":4,"booksInProgressCount":0,"metadata":{"status":"ONGOING","statusLock":false,"title":"Clockwork Orchard","titleLock":false,"titleSort":"
+$ curl -s -u reader@... -X POST http://127.0.0.1:18090/api/v1/libraries -d @library.json
+HTTP 403
+$ curl -s -u reader@... http://127.0.0.1:18090/api/v2/users  (list users as non-admin)
+HTTP 403
+$ curl -s -u keeper@...(admin) http://127.0.0.1:18090/api/v2/users
+[{"id":"0S5KAGC0AERH9","email":"keeper@clockwork.example","roles":["ADMIN","FILE_DOWNLOAD","KOBO_SYNC","KOREADER_SYNC","PAGE_STREAMING","USER"],"sharedAllLibraries":true,"sharedLibrariesIds":[],"labelsAllow":[],"labelsExclude":[]},{"id":"0S5KAX62TEKWE","email":"reader@clockwork.example","roles":["USER"],"sharedAllLibraries":true,"sharedLibrariesIds":[],"labelsAllow":[],"labelsExclude":[]}]--- the reader has only the USER role: no FILE_DOWNLOAD, no PAGE_STREAMING ---
+$ curl -s -u reader@... http://127.0.0.1:18090/api/v1/books/0S5KAHF72EN6M/pages/1   (page streaming)
+HTTP 403
+$ curl -s -u reader@... "http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/file/Clockwork%20Orchard%20001.cbz"   (file download via OPDS)
+HTTP 403
+$ curl -s -u reader@... http://127.0.0.1:18090/opds/v1.2/catalog   (browsing the catalog itself)
+HTTP 200
+$ curl -s -u keeper@...(admin, has both roles) .../pages/1 for contrast
+HTTP 200

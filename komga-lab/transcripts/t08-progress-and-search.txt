@@ -1,0 +1,24 @@
+$ curl -s -u keeper@... "http://127.0.0.1:18090/api/v1/series?search=Orchard"  (search)
+['Clockwork Orchard'] totalElements: 1
+$ curl -s -u keeper@... "http://127.0.0.1:18090/api/v1/series?search=Zeppelin"  (a word in no title)
+totalElements: 0
+
+--- read progress on book 001 (6 pages) ---
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/books/0S5KAHF72EN6M  -> readProgress before
+None
+$ curl -s -i -u keeper@... -X PATCH http://127.0.0.1:18090/api/v1/books/0S5KAHF72EN6M/read-progress -d "{\"page\": 3, \"completed\": false}"
+HTTP/1.1 204 
+Vary: Origin
+Vary: Access-Control-Request-Method
+$ ... GET book again -> readProgress after page 3
+{'page': 3, 'completed': False, 'readDate': '2026-11-07T22:12:48Z', 'created': '2026-11-07T22:12:48Z', 'lastModified': '2026-11-07T22:12:48Z', 'deviceId': '', 'deviceName': ''}
+$ curl -s -i -u keeper@... -X PATCH .../read-progress -d "{\"page\": 6, \"completed\": true}"
+HTTP/1.1 204 
+Vary: Origin
+Vary: Access-Control-Request-Method
+$ ... GET book again -> readProgress after finishing
+{'page': 6, 'completed': True, 'readDate': '2026-11-07T22:12:49Z', 'created': '2026-11-07T22:12:48Z', 'lastModified': '2026-11-07T22:12:49Z', 'deviceId': '', 'deviceName': ''}
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/series/0S5KAHF6YEYSP -> counts
+booksCount 4 booksReadCount 1 booksUnreadCount 3 booksInProgressCount 0
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/books/ondeck
+[('Clockwork Orchard 002', {})]

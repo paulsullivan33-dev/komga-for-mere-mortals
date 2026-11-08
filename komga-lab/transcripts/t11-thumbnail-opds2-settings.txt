@@ -1,0 +1,11 @@
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/series/0S5KAHF6YEYSP  (series metadata after the ComicInfo rescan)
+$ curl -s -u keeper@... -o thumb.jpg http://127.0.0.1:18090/api/v1/books/0S5KAHF72EN6M/thumbnail
+HTTP 200 content-type image/jpeg bytes 9977
+$ curl -s -u keeper@... http://127.0.0.1:18090/opds/v2/catalog   (the OPDS 2 feed the v1 catalog links to as alternate)
+{"metadata":{"title":"All libraries - Recommended","modified":"2026-11-07T22:13:40.23806386Z"},"links":[{"rel":"self","href":"http://127.0.0.1:18090/opds/v2/libraries"},{"title":"Home","rel":"start","href":"http://127.0.0.1:18090/opds/v2/catalog","type":"application/opds+json"},{"title":"Search","rel":"search","href":"http://127.0.0.1:18090/opds/v2/search{?query}","type":"application/opds+json","templated":true}],"navigation":[{"title":"Recommended","rel":"subsection","href":"http://127.0.0.1:18090/opds/v2/libraries","type":"application/opds+json"},{"title":"Browse","rel":"subsection","href":"http://127.0.0.1:18090/opds/v2/libraries/browse","type":"application/opds+json"}],"groups":[{"metada
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/settings   (server settings, admin)
+HTTP 200
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/series/0S5KAHF6YEYSP  (series metadata after the ComicInfo rescan)
+publisher: 'Orchard Press'
+booksMetadata authors: [{'name': 'A. R. Fenwick', 'role': 'writer'}]
+booksMetadata summary: 'The keeper builds a greenhouse of clock glass and plants a tree that ticks.'

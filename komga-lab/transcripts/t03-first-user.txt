@@ -1,0 +1,77 @@
+$ curl -s -i http://127.0.0.1:18090/api/v1/users/me   (no credentials, before any user exists)
+HTTP/1.1 401 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+WWW-Authenticate: Basic realm="Realm"
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: KOMGA-SESSION=Y2QzNDg5MmUtYTc0Mi00YzQ2LWFjM2UtOGEzYmQ4ZmJhOTk0; Path=/; HttpOnly; SameSite=Lax
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sat, 07 Nov 2026 22:10:46 GMT
+
+$ curl -s http://127.0.0.1:18090/ | head (the bundled web interface)
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Komga</title><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><script>/*<![CDATA[*/
+        window.resourceBaseUrl = '/'
+        /*]]>*/</script><script defer="defer" src="/js/chunk-vendors.8401f5d8.js"></script><script defer="defer" src="/js/app.cd5a
+
+$ curl -s -i -X POST http://127.0.0.1:18090/api/v1/users -H "Content-Type: application/json" -d @admin.json   (NO credentials - the first-user call)
+$ curl -s -i -X POST http://127.0.0.1:18090/api/v1/users -H "Content-Type: application/json" -d @admin.json   (NO credentials - the first-user call)
+$ cat admin.json
+{"email": "keeper@clockwork.example", "password": "LabPass-1234!", "roles": ["ADMIN", "FILE_DOWNLOAD", "PAGE_STREAMING"]}
+
+HTTP/1.1 401 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+WWW-Authenticate: Basic realm="Realm"
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: KOMGA-SESSION=NWUwNDQ5ZTMtNjM5Ni00OTE3LWE0N2QtNWNlMTM4NzgyYTA1; Path=/; HttpOnly; SameSite=Lax
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sat, 07 Nov 2026 22:10:50 GMT
+
+{"timestamp":"2026-11-07T22:10:50.903+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/api/v1/users"}
+$ curl -s -u keeper@clockwork.example:LabPass-1234! http://127.0.0.1:18090/api/v1/users/me   (basic auth with the new account)
+{"timestamp":"2026-11-07T22:10:51.234+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/api/v1/users/me"}
+HTTP 401
+$ curl -s -i -X POST .../api/v1/users (a SECOND unauthenticated attempt, now that a user exists)
+HTTP/1.1 401 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+WWW-Authenticate: Basic realm="Realm"
+X-Content-Type-Options: nosniff
+
+--- The claim flow - the call the web interface itself makes (found in its app bundle: POST /api/v1/claim with X-Komga-Email / X-Komga-Password headers and an empty body) ---
+$ curl -s http://127.0.0.1:18090/api/v1/claim   (claim status, no credentials)
+{"isClaimed":false}
+HTTP 200
+$ curl -s -i -X POST http://127.0.0.1:18090/api/v1/claim -H "X-Komga-Email: keeper@clockwork.example" -H "X-Komga-Password: LabPass-1234!" -d {}
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Cache-Control: max-age=0, must-revalidate, private
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Content-Type: application/json
+Content-Length: 229
+Date: Sat, 07 Nov 2026 22:11:21 GMT
+
+{"id":"0S5KAGC0AERH9","email":"keeper@clockwork.example","roles":["ADMIN","FILE_DOWNLOAD","KOBO_SYNC","KOREADER_SYNC","PAGE_STREAMING","USER"],"sharedAllLibraries":true,"sharedLibrariesIds":[],"labelsAllow":[],"labelsExclude":[]}
+$ curl -s http://127.0.0.1:18090/api/v1/claim   (claim status after claiming)
+{"isClaimed":true}
+HTTP 200
+$ curl -s -u keeper@clockwork.example:LabPass-1234! http://127.0.0.1:18090/api/v1/users/me
+{"timestamp":"2026-11-07T22:11:22.567+00:00","status":404,"error":"Not Found","message":"No endpoint GET /api/v1/users/me.","path":"/api/v1/users/me"}$ curl -s -u keeper@clockwork.example:... http://127.0.0.1:18090/api/v2/users/me   (the me endpoint lives under v2)
+{"id":"0S5KAGC0AERH9","email":"keeper@clockwork.example","roles":["ADMIN","FILE_DOWNLOAD","KOBO_SYNC","KOREADER_SYNC","PAGE_STREAMING","USER"],"sharedAllLibraries":true,"sharedLibrariesIds":[],"labelsAllow":[],"labelsExclude":[]}
+HTTP 200
+$ curl -s http://127.0.0.1:18090/api/v2/users/me   (no credentials)
+{"timestamp":"2026-11-07T22:11:26.009+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/api/v2/users/me"}
+HTTP 401

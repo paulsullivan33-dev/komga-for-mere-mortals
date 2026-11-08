@@ -1,0 +1,67 @@
+The lab — one release jar, one generated series, nobody else's files
+====================================================================
+
+The lab is Komga as its project ships it: the
+official release jar, komga-1.30.0.jar from the
+1.30.0 release at github.com/gotson/komga
+(tags carry no leading "v"), verified against
+the release's checksums_sha256.txt (SHA-256
+cac820a2...d8ff3) and run on OpenJDK 21.0.12.1.
+The server bound 127.0.0.1 port 18090 with its
+config folder inside the lab scratch; the jar
+itself is not in the checkout (127 MB), the
+transcripts name it exactly.
+
+  * The fixtures (komga-lab/fixtures/library/):
+    one invented series, "Clockwork Orchard",
+    drawn by make_fixtures.py with Pillow —
+    simple panels, shapes, and printed text,
+    no copied art and nobody real. Three CBZ
+    issues (6, 5, and 4 pages of 800x1100 PNG),
+    plus "Clockwork Orchard 004.cbz", which is
+    plain text in a .cbz name, kept in every
+    count. add-issue-005.py later files a
+    3-page issue 005 and rebuilds 003 with a
+    ComicInfo.xml inside (same pages), so the
+    checkout's final fixture state is the
+    end-of-lab state: 5 files, 4 readable.
+
+  * The accounts are the lab's own inventions:
+    keeper@clockwork.example (claimed
+    administrator) and reader@clockwork.example
+    (a role-less second user), passwords in the
+    transcripts because the lab is disposable
+    and loopback-only.
+
+  * Every claim's evidence
+    (komga-lab/transcripts/): t00 version and
+    checksum; t01 the fixture generation
+    record the server is later checked
+    against; t02 the startup banner, version
+    line, 95 migrations, the port line; t03
+    the first user — two dead ends (401 on
+    POST /api/v1/users, 404 on
+    /api/v1/users/me) kept on record, then the
+    claim flow the web interface itself makes;
+    t04 the library record with its defaults
+    and the scan logs; t05 the series and its
+    books with page counts and the odd file's
+    UNSUPPORTED verdict; t06 the page list and
+    a page read back byte-identical; t07 the
+    OPDS catalog, series feed, a byte-identical
+    download, and the PSE page stream; t08
+    search and read progress; t09 the second
+    user and the roles' 403s; t10 the new
+    issue and the ComicInfo rescan; t11
+    thumbnail, OPDS 2, and the settings door.
+
+  * Two accidents, kept on record: the jar
+    download was reported complete by the
+    shell while the transfer was still
+    running; the lab noticed because the file
+    kept growing, waited, and verified size
+    and SHA-256 before use. And the guide's
+    first-user and v1/v2 dead ends (t03, t09)
+    are preserved in the transcripts rather
+    than edited into a tidy fiction — they are
+    how the chapters know what they know.

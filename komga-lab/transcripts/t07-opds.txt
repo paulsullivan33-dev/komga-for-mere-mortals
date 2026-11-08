@@ -1,0 +1,89 @@
+$ curl -s -u keeper@... http://127.0.0.1:18090/opds/v1.2/catalog
+HTTP/1.1 200 
+X-Content-Type-Options: nosniff
+Content-Type: application/atom+xml
+<?xml version="1.0" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<id>root</id>
+	<title>Komga OPDS catalog</title>
+	<updated>2026-11-07T22:12:16.873292655Z</updated>
+	<author>
+		<name>Komga</name>
+		<uri>https://github.com/gotson/komga</uri>
+	</author>
+	<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="self" href="http://127.0.0.1:18090/opds/v1.2/catalog"/>
+	<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="start" href="http://127.0.0.1:18090/opds/v1.2/catalog"/>
+	<link type="application/opensearchdescription+xml" rel="search" href="http://127.0.0.1:18090/opds/v1.2/search"/>
+	<link type="application/opds+json" rel="alternate" href="http://127.0.0.1:18090/opds/v2/catalog"/>
+	<entry>
+		<title>Keep Reading</title>
+		<updated>2026-11-07T22:12:16.922900536Z</updated>
+		<id>keepReading</id>
+		<content>Continue reading your in progress books</content>
+		<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/keep-reading"/>
+	</entry>
+	<entry>
+		<title>On Deck</title>
+		<updated>2026-11-07T22:12:16.923001968Z</updated>
+		<id>ondeck</id>
+		<content>Browse what to read next</content>
+		<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/ondeck"/>
+	</entry>
+	<entry>
+		<title>All series</title>
+		<updated>2026-11-07T22:12:16.923042419Z</updated>
+		<id>allSeries</id>
+		<content>Browse by series</content>
+		<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/series"/>
+	</entry>
+	<entry>
+		<title>Latest series</title>
+		<updated>2026-11-07T22:12:16.923099404Z</updated>
+		<id>latestSeries</id>
+		<content>Browse latest series</content>
+		<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/series/latest"/>
+	</entry>
+	<entry>
+		<title>Latest books</title>
+		<updated>2026-11-07T22:12:16.923139665Z</updated>
+		<id>latestBooks</id>
+		<content>Browse latest books</content>
+		<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/books/latest"/>
+	</entry>
+	<entry>
+		<title>All libraries</title>
+		<updated>2026-11-07T22:12:16.923538884Z</updated>
+		<id>allLibraries</id>
+		<content>Browse by library</content>
+		<link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/libraries"/>
+	</entry>
+	<entry>
+ENTRY: Clockwork Orchard
+   <link type="application/atom+xml;profile=opds-catalog;kind=navigation" rel="subsection" href="http://127.0.0.1:18090/opds/v1.2/series/0S5KAHF6YEYSP"/>
+$ curl -s -u keeper@... http://127.0.0.1:18090/opds/v1.2/series/0S5KAHF6YEYSP   (one series feed - entries distilled)
+ENTRY: Clockwork Orchard 001
+   <link type="image/jpeg" rel="http://opds-spec.org/image/thumbnail" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/thumbnail/small"/>
+   <link type="image/jpeg" rel="http://opds-spec.org/image" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/thumbnail"/>
+   <link type="application/zip" rel="http://opds-spec.org/acquisition" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/file/Clockwork%20Orchard%20001.cbz"/>
+   <link href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/pages/{pageNumber}" xmlns:pse="http://vaemendis.net/opds-pse/ns" pse:count="6" type="image/png" rel="http://vaemendis.net/opds-pse/stream"/>
+ENTRY: Clockwork Orchard 002
+   <link type="image/jpeg" rel="http://opds-spec.org/image/thumbnail" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF82EQ16/thumbnail/small"/>
+   <link type="image/jpeg" rel="http://opds-spec.org/image" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF82EQ16/thumbnail"/>
+   <link type="application/zip" rel="http://opds-spec.org/acquisition" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF82EQ16/file/Clockwork%20Orchard%20002.cbz"/>
+   <link href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF82EQ16/pages/{pageNumber}" xmlns:pse="http://vaemendis.net/opds-pse/ns" pse:count="5" type="image/png" rel="http://vaemendis.net/opds-pse/stream"/>
+ENTRY: Clockwork Orchard 003
+   <link type="image/jpeg" rel="http://opds-spec.org/image/thumbnail" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF86EPNH/thumbnail/small"/>
+   <link type="image/jpeg" rel="http://opds-spec.org/image" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF86EPNH/thumbnail"/>
+   <link type="application/zip" rel="http://opds-spec.org/acquisition" href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF86EPNH/file/Clockwork%20Orchard%20003.cbz"/>
+   <link href="http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF86EPNH/pages/{pageNumber}" xmlns:pse="http://vaemendis.net/opds-pse/ns" pse:count="4" type="image/png" rel="http://vaemendis.net/opds-pse/stream"/>
+OPDS series feed entry count: 3 (counted with grep -o '<entry>' opds-books.xml | wc -l; the UNSUPPORTED odd book is not offered)
+$ curl -s -u keeper@... -o via-opds.cbz "http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/file/Clockwork%20Orchard%20001.cbz"
+HTTP 200 content-type application/zip bytes 164401
+63ee36ad1638d7c557827696d5c4dd8340460cb4691a9d75bdaf117f3e68cbf3  via-opds.cbz
+63ee36ad1638d7c557827696d5c4dd8340460cb4691a9d75bdaf117f3e68cbf3  /home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library/Clockwork Orchard/Clockwork Orchard 001.cbz
+$ curl -s http://127.0.0.1:18090/opds/v1.2/catalog   (no credentials)
+HTTP 401
+$ curl -s -u keeper@... "http://127.0.0.1:18090/opds/v1.2/books/0S5KAHF72EN6M/pages/0"   (OPDS-PSE page stream, page numbers from 0)
+HTTP 200 content-type image/png bytes 31402
+688ccb3e7fe31e71225b2d1c58150b6cf2e23472328f3b7a3978349310507ad8  pse-page0.png
+688ccb3e7fe31e71225b2d1c58150b6cf2e23472328f3b7a3978349310507ad8  page1.png

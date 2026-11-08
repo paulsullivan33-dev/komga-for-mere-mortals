@@ -1,0 +1,13 @@
+java:
+openjdk version "21.0.12.1" 2026-08-18
+OpenJDK Runtime Environment (build 21.0.12.1+1-1-24.04.4-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-24.04.4-Ubuntu, mixed mode, sharing)
+
+jar file: komga-1.30.0.jar from https://github.com/gotson/komga/releases/download/1.30.0/komga-1.30.0.jar
+-rw-rw---- 1 root root 127123335 Nov  7 22:08 komga-1.30.0.jar
+
+official checksums_sha256.txt (same release):
+cac820a26caf8c8cc2239351b5f7ac7c5ba13badfae5bb0ce2b2449f1dfd8ff3  komga-1.30.0.jar
+
+local sha256sum:
+cac820a26caf8c8cc2239351b5f7ac7c5ba13badfae5bb0ce2b2449f1dfd8ff3  komga-1.30.0.jar

@@ -1,0 +1,31 @@
+site_name: Komga for Mere Mortals
+site_description: Serve the comics and manga you already own from your own machine. Libraries, series and books, scanning folders, the web reader, the API, OPDS for reading apps, users, reading progress, and knowing exactly what the server will and will not fix for you.
+site_url: https://paulsullivan33-dev.github.io/komga-for-mere-mortals/
+copyright: 'Part of <a href="https://paulsullivan33-dev.github.io/mere-mortals/">For Mere Mortals</a> · Text <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, code MIT'
+
+# Guides live at the repo root (nice for GitHub browsing).
+# The deploy workflow copies them into docs/ before building.
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - What Komga Is: what-komga-is.md
+  - The Moving Parts: the-moving-parts.md
+  - Installing Komga: installing-komga.md
+  - Your First Run: your-first-run.md
+  - Organising on Disk: organising-on-disk.md
+  - Libraries and Scanning: libraries-and-scanning.md
+  - Reading in the Browser: reading-in-the-browser.md
+  - The REST API: the-rest-api.md
+  - OPDS and Reading Apps: opds-and-reading-apps.md
+  - Users and Access: users-and-access.md
+  - Reading Progress: reading-progress.md
+  - Metadata and ComicInfo: metadata-and-comicinfo.md
+  - Running It for Real: running-it-for-real.md
+  - Real Jobs: real-jobs.md
+  - The Neighbours: the-neighbours.md
+  - Limits: limits.md
+  - Troubleshooting: troubleshooting.md
+  - Glossary: glossary.md
+  - Writing Criteria: criteria.md

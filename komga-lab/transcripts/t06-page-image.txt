@@ -1,0 +1,73 @@
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/books/0S5KAHF72EN6M/pages
+[
+    {
+        "number": 1,
+        "fileName": "page-01.png",
+        "mediaType": "image/png",
+        "width": 800,
+        "height": 1100,
+        "sizeBytes": 31402,
+        "size": "30.7 KiB"
+    },
+    {
+        "number": 2,
+        "fileName": "page-02.png",
+        "mediaType": "image/png",
+        "width": 800,
+        "height": 1100,
+        "sizeBytes": 31959,
+        "size": "31.2 KiB"
+    },
+    {
+        "number": 3,
+        "fileName": "page-03.png",
+        "mediaType": "image/png",
+        "width": 800,
+        "height": 1100,
+        "sizeBytes": 32106,
+        "size": "31.4 KiB"
+    },
+    {
+        "number": 4,
+        "fileName": "page-04.png",
+        "mediaType": "image/png",
+        "width": 800,
+        "height": 1100,
+        "sizeBytes": 31719,
+        "size": "31 KiB"
+    },
+    {
+        "number": 5,
+        "fileName": "page-05.png",
+        "mediaType": "image/png",
+        "width": 800,
+        "height": 1100,
+        "sizeBytes": 32013,
+        "size": "31.3 KiB"
+    },
+    {
+        "number": 6,
+        "fileName": "page-06.png",
+        "mediaType": "image/png",
+        "width": 800,
+        "height": 1100,
+        "sizeBytes": 31450,
+        "size": "30.7 KiB"
+    }
+]
+$ curl -s -u keeper@... -o page1.png -w ... http://127.0.0.1:18090/api/v1/books/0S5KAHF72EN6M/pages/1
+HTTP/1.1 200 
+X-Content-Type-Options: nosniff
+Content-Type: image/png
+Content-Length: 31402
+-rw-rw---- 1 root root 31402 Nov  7 22:12 /home/hatch/workspace/.batch-351-363/scratch-komga/page1.png
+/home/hatch/workspace/.batch-351-363/scratch-komga/page1.png: PNG image data, 800 x 1100, 8-bit/color RGB, non-interlaced
+$ curl -s -u keeper@... http://127.0.0.1:18090/api/v1/books/0S5KAHF8JEVN3/pages/1   (the odd book - no pages to give)
+{"timestamp":"2026-11-07T22:12:12.037+00:00","status":404,"error":"Not Found","message":"Book analysis failed","path":"/api/v1/books/0S5KAHF8JEVN3/pages/1"}
+HTTP 404
+
+$ curl -s -o /dev/null -w "%{http_code}" (no credentials, page request)
+HTTP 401
+inside cbz sha256: 688ccb3e7fe31e71225b2d1c58150b6cf2e23472328f3b7a3978349310507ad8
+served     sha256: 688ccb3e7fe31e71225b2d1c58150b6cf2e23472328f3b7a3978349310507ad8
+identical: True

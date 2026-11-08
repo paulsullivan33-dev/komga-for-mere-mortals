@@ -1,0 +1,28 @@
+$ cat library.json
+{"name": "Clockwork Library", "root": "/home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library"}
+
+$ curl -s -i -u keeper@... -X POST http://127.0.0.1:18090/api/v1/libraries -H "Content-Type: application/json" -d @library.json
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Cache-Control: max-age=0, must-revalidate, private
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: KOMGA-SESSION=ZGViNTBlMTgtZTlhOC00YWEwLTg0YTItMDc3ZDViNTQzYWNk; Path=/; HttpOnly; SameSite=Lax
+Content-Type: application/json
+Content-Length: 788
+Date: Sat, 07 Nov 2026 22:11:30 GMT
+
+{"id":"0S5KAHEBJEPPY","name":"Clockwork Library","root":"/home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library","importComicInfoBook":true,"importComicInfoSeries":true,"importComicInfoCollection":true,"importComicInfoReadList":true,"importComicInfoSeriesAppendVolume":true,"importEpubBook":true,"importEpubSeries":true,"importMylarSeries":true,"importLocalArtwork":true,"importBarcodeIsbn":true,"scanForceModifiedTime":false,"scanInterval":"EVERY_6H","scanOnStartup":false,"scanCbx":true,"scanPdf":true,"scanEpub":true,"scanDirectoryExclusions":[],"repairExtensions":false,"convertToCbz":false,"emptyTrashAfterScan":false,"seriesCover":"FIRST","hashFiles":true,"hashPages":false,"hashKoreader":false,"analyzeDimensions":true,"oneshotsDirectory":null,"unavailable":false}$ curl -s -u keeper@... "http://127.0.0.1:18090/api/v1/series?unpaged=true"   (right after library creation)
+{"content":[{"id":"0S5KAHF6YEYSP","libraryId":"0S5KAHEBJEPPY","name":"Clockwork Orchard","url":"/home/hatch/workspace/komga-for-mere-mortals/komga-lab/fixtures/library/Clockwork Orchard","created":"2026-11-07T22:11:30Z","lastModified":"2026-11-07T22:11:30Z","fileLastModified":"2026-11-07T22:06:17Z","booksCount":4,"booksReadCount":0,"booksUnreadCount":4,"booksInProgressCount":0,"metadata":{"status":"ONGOING","statusLock":false,"title":"Clockwork Orchard","titleLock":false,"titleSort":"Clockwork Orchard","titleSortLock":false,"summary":"","summaryLock":false,"readingDirection":"","readingDirectionLock":false,"publisher":"","publisherLock":false,"ageRating":null,"ageRatingLock":false,"language":"","languageLock":false,"genres":[],"genresLock":false,"tags":[],"tagsLock":false,"totalBookCount":null,"totalBookCountLock":false,"sharingLabels":[],"sharingLabelsLock":false,"links":[],"linksLock":false,"alternateTitles":[],"alternateTitlesLock":false,"created":"2026-11-07T22:11:30Z","lastModified":"2026-11-07T22:11:36Z"},"booksMetadata":{"authors":[],"notableEntities":[],"tags":[],"releaseDate":null,"summary":"","summaryNumber":"","created":"2026-11-07T22:11:30Z","lastModified":"2026-11-07T22:11:37Z"},"deleted":false,"oneshot":false}],"pageable":{"pageNumber":0,"pageSize":20,"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"paged":true,"unpaged":false},"last":true,"totalElements":1,"totalPages":1,"size":20,"number":0,"sort":{"empty":true,"sorted":false,"unsorted":true},"first":true,"numberOfElements":1,"empty":false}
+$ curl -s -i -u keeper@... -X POST http://127.0.0.1:18090/api/v1/libraries/0S5KAHEBJEPPY/scan
+HTTP/1.1 202 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Cache-Control: max-age=0, must-revalidate, private
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
